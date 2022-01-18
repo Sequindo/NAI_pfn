@@ -80,11 +80,23 @@ int main(int argc, char** argv)
         }
     } */
     std::vector<std::tuple<point2d, point2d, double>> obstacleLines;
-    obstacleLines.push_back(std::make_tuple<point2d, point2d, double>({8.0, 0.0}, {8.0, 7.5}, 3.0));
-    obstacleLines.push_back(std::make_tuple<point2d, point2d, double>({4.0, 5.5}, {8.0, 5.5}, 3.0));
-    obstacleLines.push_back(std::make_tuple<point2d, point2d, double>({0.0, 3.0}, {3.5, 3.50}, 3.0));
+    obstacleLines.push_back(std::make_tuple<point2d, point2d, double>({8.0, -2.0}, {8.0, 7.5}, 1.0));
+    obstacleLines.push_back(std::make_tuple<point2d, point2d, double>({4.0, 5.5}, {8.0, 5.5}, 1.0));
+    obstacleLines.push_back(std::make_tuple<point2d, point2d, double>({-1.0, -1.0}, {10.5, -1.0}, 1.0));
     //point2d segmentStart{4.6, -3.6};
     //point2d segmentEnd{5.7, 3.7};
+
+    //primitive ways to print lines in gnuplot using stdout
+    for (const auto& obstacleTuple : obstacleLines) {
+        auto p1 = std::get<0>(obstacleTuple);
+        auto p2 = std::get<1>(obstacleTuple);
+        while(p1[0]<p2[0] || p1[1]<p2[1]) {
+            std::cout << p1[0] << " " << p1[1] << std::endl;
+            if(p1[0]!=p2[0]) p1[0] = p1[0] + 0.1;
+            if(p1[1]!=p2[1]) p1[1] = p1[1] + 0.1;
+        }
+        std::cout << std::endl;
+    }
 
     auto field = [&](point2d p) -> double {
         double obstaclefield = 0;
